@@ -15,6 +15,11 @@ db_import()
 # print(str(ssh_tunnel.public_url) + '/categories')
 # print("http://localhost:302" + '/profile')
 
+
+app.secret_key = ''
+for k in range(32):
+    app.secret_key += "DNCFTB"[random.randint(0,5)]
+
 if __name__ == '__main__':
     app.run()
 
