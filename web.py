@@ -60,7 +60,10 @@ def operations_page():
 
     user = user_by_id(int(session['user_id']))
     balance = parse_amount(user.balance)
-    rows = [[], [], operations[-1].id + 1, balance]
+    last_op_id = 0
+    if len(operations) > 0:
+        last_op_id = operations[-1].id + 1
+    rows = [[], [], last_op_id, balance]
     # print(categories)
     # print(operations)
     for ctg in categories:
@@ -224,7 +227,11 @@ def categories_GET():
         return redirect('/login')
     user = user_by_id(int(session['user_id']))
 
-    rows = [[], categories[-1].id + 1]
+    last_ctg_id = 0
+    if len(categories) > 0:
+        last_ctg_id = categories[-1].id + 1
+
+    rows = [[], last_ctg_id]
     for ctg in categories:
         ctg: Category
         if ctg.user.id == user.id:

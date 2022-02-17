@@ -93,7 +93,10 @@ class User:
     def __init__(self, id, email, password, name, balance, reg_date=None,
                  new = True):
         if id == -1:
-            id = users[-1].id + 1
+            if len(users) > 0:
+                id = users[-1].id + 1
+            else:
+                id = 0
         self.id = id
         self.email = email
         self.password = password
