@@ -15,5 +15,5 @@ db_import()
 # print(str(ssh_tunnel.public_url) + '/categories')
 # print("http://localhost:302" + '/profile')
 
-app.run(host="0.0.0.0", port=302)
+app.run(host="0.0.0.0")
 
