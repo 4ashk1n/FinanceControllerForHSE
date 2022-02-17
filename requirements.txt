@@ -1,4 +1,4 @@
-pandas==1.1.1
+pandas==1.2.4
 Flask==1.1.2
 matplotlib==3.5.1
 pyngrok==5.0.2
