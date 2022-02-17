@@ -16,9 +16,9 @@ db_import()
 # print("http://localhost:302" + '/profile')
 
 
-app.secret_key = ''
-for k in range(32):
-    app.secret_key += "DNCFTB"[random.randint(0,5)]
+app.secret_key = 'DNCJFOFJSPFJDFJDPFJSDFISD534JIOJ35JR4832JJNGHDUFDFSHNDCAS[QEOIRUQ[[Q349'
+# for k in range(32):
+#     app.secret_key += "DNCFTB"[random.randint(0,5)]
 
 if __name__ == '__main__':
     app.run()
