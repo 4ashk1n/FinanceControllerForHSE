@@ -7,11 +7,13 @@ from engine import *
 """
 
 db_import()
-print(str(ssh_tunnel.public_url) + '/operations')
-print(str(ssh_tunnel.public_url) + '/login')
-print(str(ssh_tunnel.public_url) + '/reg')
-print(str(ssh_tunnel.public_url) + '/stats')
-print(str(ssh_tunnel.public_url) + '/categories')
-print("http://localhost:302" + '/profile')
+
+# print(str(ssh_tunnel.public_url) + '/operations')
+# print(str(ssh_tunnel.public_url) + '/login')
+# print(str(ssh_tunnel.public_url) + '/reg')
+# print(str(ssh_tunnel.public_url) + '/stats')
+# print(str(ssh_tunnel.public_url) + '/categories')
+# print("http://localhost:302" + '/profile')
+
 app.run(host="0.0.0.0", port=302)
 

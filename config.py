@@ -7,18 +7,21 @@ import requests
 import requests.packages.urllib3.util.connection as urllib3_cn
 import pandas as pd
 import os
+import random
 
 requests.packages.urllib3.util.connection.HAS_IPV6 = False
 
-ssh_tunnel = ngrok.connect(302)
-print(ssh_tunnel)
+# ssh_tunnel = ngrok.connect(302)
+# print(ssh_tunnel)
 
 
 DB = sql.connect('DataBase.db', check_same_thread=False)
 
 # ЮЗЕРУ НЕ ТРОГАТЬ
 app = Flask(__name__)
-app.secret_key = 'TCDFBDCDBFFFCDCBBNDFDTCNBNDCCTDTTBFTBTFFDNTDFNCBTDBFFBDBBTTNNTTD'
+app.secret_key = ''
+for k in range(32):
+    app.secret_key += "DNCFTB"[random.randint(0,5)]
 
 users = []
 operations = []
@@ -35,7 +38,7 @@ CREATE TABLE IF NOT EXISTS "categories" (
 );
 ''')
 db_cursor.execute('''
-CREATE TABLE "operations" (
+CREATE TABLE IF NOT EXISTS "operations" (
 	"id"	INTEGER,
 	"user"	INTEGER,
 	"type"	INTEGER,
@@ -46,7 +49,7 @@ CREATE TABLE "operations" (
 );
 ''')
 db_cursor.execute('''
-CREATE TABLE "users" (
+CREATE TABLE IF NOT EXISTS "users" (
 	"id"	INTEGER,
 	"email"	TEXT,
 	"password"	TEXT,
