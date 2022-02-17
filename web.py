@@ -57,6 +57,9 @@ def operations_page():
     session['last_page'] = '/operations'
     if "user_id" not in session:
         return redirect('/login')
+    print(users)
+    for k in users:
+        print(k.id)
     print(session['user_id'])
     user = user_by_id(int(session['user_id']))
     balance = parse_amount(user.balance)
