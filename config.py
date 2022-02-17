@@ -22,7 +22,9 @@ app = Flask(__name__)
 app.secret_key = ''
 for k in range(32):
     app.secret_key += "DNCFTB"[random.randint(0,5)]
-
+app.config["SESSION_PERMANENT"] = True
+app.config["SESSION_TYPE"] = "filesystem"
+# Session(app)
 
 users = []
 operations = []
