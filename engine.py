@@ -342,38 +342,41 @@ def balance_by_inf(summ, type):
 
     # type = 2 # год - 2, 6 мес. - 1, 3 мес. - 0
     if float(summ) > 0:
-        year2 = dt.date.today().year
-        month2 = dt.date.today().month
-        day2 = dt.date.today().day
-        year1 = year2
-        month1 = month2
-        day1 = day2
+        try:
+            year2 = dt.date.today().year
+            month2 = dt.date.today().month
+            day2 = dt.date.today().day
+            year1 = year2
+            month1 = month2
+            day1 = day2
 
-        if type == 2:
-            year1 -= 1
+            if type == 2:
+                year1 -= 1
 
-        elif type == 1:
-            month1 -= 6
-            if month1 <= 0:
-                month1 += 12
+            elif type == 1:
+                month1 -= 6
+                if month1 <= 0:
+                    month1 += 12
 
-        elif type == 0:
-            month1 -= 3
-            if month1 <= 0:
-                month1 += 12
+            elif type == 0:
+                month1 -= 3
+                if month1 <= 0:
+                    month1 += 12
 
 
-        request_link = (f'https://fxtop.com/ru/inflation-calculator.php?A={summ}' +
-                        f'&C1=RUB&INDICE=RUCPI2000&DD1={day1}&MM1={month1}&YYYY1={year1}' +
-                        f'&DD2={day2}&MM2={month2}&YYYY2={year2}')
+            request_link = (f'https://fxtop.com/ru/inflation-calculator.php?A={summ}' +
+                            f'&C1=RUB&INDICE=RUCPI2000&DD1={day1}&MM1={month1}&YYYY1={year1}' +
+                            f'&DD2={day2}&MM2={month2}&YYYY2={year2}')
 
-        response = requests.get(request_link)
+            response = requests.get(request_link)
 
-        response = response.content
-        response = response.decode()
-        soup = BeautifulSoup(response, "lxml")
+            response = response.content
+            response = response.decode()
+            soup = BeautifulSoup(response, "lxml")
 
-        return float(soup.find("a", title="конвертация валют на дату окончания").text.split("RUB")[0].replace(' ',''))
-    return 0
+            return float(soup.find("a", title="конвертация валют на дату окончания").text.split("RUB")[0].replace(' ',''))
+        except:
+            return 0.0
+    return 0.0
 
 
