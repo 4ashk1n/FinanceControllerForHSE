@@ -2,3 +2,5 @@
 /.idea/
 /.pycache/
 *.db
+*.xlsx
+*.csv
