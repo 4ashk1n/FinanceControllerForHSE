@@ -1,0 +1,92 @@
+<html>
+	<head>
+		<title>My Profile</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='styles/profile.css') }}">
+	</head>
+	<body>
+		<div class="topbar">
+			<div class="topbar_container">
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/profile'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/perm_identity_white_24dp.svg') }}"
+							 alt = "Личный кабинет">
+					</button>
+					<p class="topbar_text">Мой аккаунт</p>
+				</div>
+
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/info_white_24dp.svg') }}"
+							 alt = "Иформация">
+					</button>
+					<p class="topbar_text">Информация</p>
+				</div>
+
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/operations'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/payments_white_24dp.svg') }}"
+							 alt = "Операции">
+					</button>
+					<p class="topbar_text">Операции</p>
+				</div>
+
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/stats'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/assessment_white_24dp.svg') }}"
+							 alt = "Статистика">
+					</button>
+					<p class="topbar_text">Статистика</p>
+				</div>
+
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/categories'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/category_white_24dp.svg') }}"
+							 alt = "Категории">
+					</button>
+					<p class="topbar_text">Категории</p>
+				</div>
+
+			</div>
+
+		</div>
+
+		{% if error %}
+		<script>alert("{{error}}")</script>
+		{% endif %}
+
+		<div class="container">
+			<div class="greeting">Здравствуйте, {{rows[0]}}!</div>
+			<div class="buttons_cnt">
+				<button class="logout" onclick="window.location.href = '/logout'" id="logout">Выйти</button>
+			</div>
+			<form method="post" class="edit">
+				<div class="edit_profile">
+					<p class="edit_text">Имя</p>
+					<input type="text" name="edit_name" value="{{rows[0]}}" required>
+					<p class="edit_text">Текущий баланс</p>
+					<input type="number" name="edit_balance" value="{{rows[1]}}" required>
+					<p class="edit_text">Текущий логин</p>
+					<input type="text" name="edit_login" value="{{rows[2]}}" required>
+				</div>
+				<div class="edit_password">
+					<p class="edit_text">Текущий пароль</p>
+					<input type="password" name="old_password" required>
+					<p class="edit_text">Новый пароль</p>
+					<input type="password" name="new_password_1">
+					<p class="edit_text">Новый пароль (еще раз)</p>
+					<input type="password" name="new_password_2">
+				</div>
+				<button class="confirm_button" type="confirm">Сохранить изменения</button>
+
+			</form>
+
+		</div>
+
+	</body>
+</html>

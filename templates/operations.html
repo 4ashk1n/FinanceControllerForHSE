@@ -1,0 +1,227 @@
+<html>
+	<head>
+		<title>Operations</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="operations.css">
+		<link rel="preload" href= "{{ url_for('static',filename='styles/operations.css') }}" as="style">
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/operations.css') }}"/>
+		<link rel="preload" href="{{ url_for('static', filename='icons/edit_black_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/done_black_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/close_white_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/info_white_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/payments_white_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/perm_identity_white_24dp.svg') }}" as="image">
+		<script src="{{ url_for('static', filename='scripts/checkboxes.js') }}"></script>
+
+	</head>
+	<body>
+		<div class="topbar">
+				<div class="topbar_container">
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/profile'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/perm_identity_white_24dp.svg') }}"
+								 alt = "Личный кабинет">
+						</button>
+						<p class="topbar_text">Мой аккаунт</p>
+					</div>
+
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/info_white_24dp.svg') }}"
+								 alt = "Иформация">
+						</button>
+						<p class="topbar_text">Информация</p>
+					</div>
+
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/operations'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/payments_white_24dp.svg') }}"
+								 alt = "Операции">
+						</button>
+						<p class="topbar_text">Операции</p>
+					</div>
+
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/stats'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/assessment_white_24dp.svg') }}"
+								 alt = "Статистика">
+						</button>
+						<p class="topbar_text">Статистика</p>
+					</div>
+
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/categories'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/category_white_24dp.svg') }}"
+								 alt = "Категории">
+						</button>
+						<p class="topbar_text">Категории</p>
+					</div>
+
+				</div>
+
+			</div>
+		<div class="container">
+			<img class="popup_close" onclick="PopupWindowHide({{rows[0]}})"
+				 src="{{ url_for('static',filename='icons/close_white_24dp.svg')}}"
+				 id="popup_close" alt="Закрыть">
+
+			<div class="dim" id="dim" onclick="PopupWindowHide({{rows[0]}})"></div>
+			<div class="popup_container" id="popup">
+				<div id="popup_op_id" style="display: none;"></div>
+				<div class="popup_top_color" id="popup_color"></div>
+				<div class="popup_text" id="popup_text"></div>
+				<div class="popup_amount_cont" id="popup_amount_cont">
+					<span class="popup_amount_small" id="popup_amount_small"></span>
+					<span class="popup_amount_big" id="popup_amount_big"></span>
+				</div>
+				<div class="popup_description">
+					<p class="popup_description_text" id="popup_description_text"></p>
+				</div>
+				<span class="popup_date" id="popup_date"></span>
+				<div class="popup_buttons">
+					<button class="popup_button" id="popup_button_edit" onclick="PopupEdit({{rows[0]}}, 0)">
+<!--						<img src="icons/edit_black_48dp.svg" alt="None" class="popup_button_edit_img">-->
+					</button>
+				</div>
+			</div>
+
+			<div class="fixed_containers">
+				<div class="fixed_container" id="filters_container">
+					<div class="add_button_container">
+						<button class="add_button"
+								onclick="PopupWindowShow('', 0, 0, '', '#ffffff', {{rows[2]}}, 0, '');
+										PopupEdit({{rows[0]}}, 0)">
+							<div class="add_button_text">
+								Добавить операцию
+							</div>
+						</button>
+					</div>
+					<div class="filters_container">
+						<div class="categories_container" onload="">
+							{% for row in rows[0] %}
+								<div class="categorie">
+									<input class="categorie_checkbox" type="checkbox"
+										   id='categorie_{{row[0]}}'
+										   name='categorie_{{row[0]}}'
+										   onclick="CheckBoxCategorie('{{row[1]}}', this)"
+										   checked="checked"/>
+									<script>CheckBoxCategorie("{{row[1]}}", document.getElementById('categorie_{{row[0]}}'))</script>
+									<label class="categorie_checkbox-label" for='categorie_{{row[0]}}'>{{row[2]}}</label>
+								</div>
+							{% endfor %}
+						</div>
+						<div class="dates_filter_container">
+							<div class="dates_text">
+								С
+							</div>
+							<div class="dates_begin">
+								<input id="date_start" type="date" class="dates_begin_input" onchange="FiltersRender()">
+							</div>
+							<div class="dates_text">
+								По
+							</div>
+							<div class="dates_end">
+								<input id="date_end" type="date" class="dates_end_input" onchange="FiltersRender()">
+							</div>
+						</div>
+						<div class="type_filter_container">
+							<div class="type_filter_cont">
+								<input class="categorie_checkbox" type="checkbox"
+									   id="type_1" name="type_1"
+									   onclick="CheckBoxCategorie('#3b9e31', this)" checked="checked"/>
+								<script>CheckBoxCategorie('#3b9e31', document.getElementById('type_1'))</script>
+								<label class="categorie_checkbox-label" for="type_1">Доходы</label>
+
+							</div>
+							<div class="type_filter_cont">
+								<input class="categorie_checkbox" type="checkbox"
+									   id="type_0" name="type_0"
+									   onclick="CheckBoxCategorie('#262626', this)" checked="checked"/>
+								<script>CheckBoxCategorie('#262626', document.getElementById('type_0'))</script>
+								<label class="categorie_checkbox-label" for="type_0">Расходы</label>
+
+							</div>
+						</div>
+						<div class="base_filter_container">
+							<div class="form_radio_btn" id="base_filter_button_div">
+								<input type="radio" class="base_filter_button"
+								   id="base_filter_button" onclick="BaseModeSwitch()">
+								<label for="base_filter_button" id="base_filter_text">Режим базовой операции</label>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+
+				<div class="fixed_container" id="balance_container">
+					<p class="balance_header">Ваш текущий баланс:</p>
+					<div class="balance_amount" data-amount="{{rows[3][0]}}.{{rows[3][1]}}">
+						<span class="balance_amount_big">{{rows[3][0]}}</span>
+						<span class="balance_amount_small">,{{rows[3][1]}}</span>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="operations_container">
+				{% for row in rows[1] %}
+					<div class="ops_table_cont">
+						<div class="date_cont">
+							<div class="date_name">
+								<p class="date_name_text">{{row[0]}}</p>
+								<hr class="date_line">
+							</div>
+						</div>
+						<div class="ops_cont">
+							<div class="operation_cont">
+								{% for op in row[1] %}
+									<div class="operation" id='operation_{{op[7]}}'
+										 data-categorie="{{op[0]}}"
+										 data-date="{{op[1]}}"
+										 data-type="{{op[2]}}"
+										 data-amount="{{op[3]}}.{{op[4]}}"
+										 onclick="PopupWindowShow(
+										 		date='{{op[1]}}',
+										 		amountbig='{{op[3]}}',
+										 		amountsmall='{{op[4]}}',
+										 		description=`{{op[5]}}`,
+										 		color='{{op[6]}}',
+										 		id_={{op[7]}},
+										 		type={{op[2]}},
+										 		category_name='{{op[8]}}')">
+										<div class="op_color" style="background: {{op[6]}}"></div>
+										<div class="op_category">
+											<div class="op_category_text">{{op[8]}}</div>
+										</div>
+										<div class="op_amount_cont">
+											<div class="op_amount">
+												{% if not op[2] %}
+													<span class="op_amount_minus_big">-{{op[3]}}</span>
+													<span class="op_amount_minus_small">,{{op[4]}}</span>
+												{% else %}
+													<span class="op_amount_plus_big">+{{op[3]}}</span>
+													<span class="op_amount_plus_small">,{{op[4]}}</span>
+												{% endif %}
+											</div>
+
+										</div>
+									</div>
+								{% endfor %}
+							</div>
+
+
+						</div>
+					</div>
+				{% endfor %}
+				</div>
+			</div>
+		</div>
+	</body>
+	<script src="{{url_for('static',filename='scripts/operations.js')}}"></script>
+</html>

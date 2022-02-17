@@ -1,0 +1,52 @@
+<html>
+	<head>
+		<title>Reg</title>
+		<meta charset="UTF-8">
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/auth.css') }}"/>
+	</head>
+	<body>
+		<div class="container">
+			<div class="container">
+
+            <div class="login_form">
+
+                 <form method="post" class="login_form">
+                     <div class="top-color">
+						<p class="top_color_header">
+							Регистрация
+						</p>
+					 </div>
+                     <div class="login-form-content">
+
+                         <div class="login">
+<!--                             <p class="username_label"> Enter Telegram username </p>-->
+                              <label for="email" class="email_label">Адрес электронной почты</label>
+                            <input type="text" name="email" id="email" required>
+                             <label for="password1" class="password_label">Пароль</label>
+                            <input type="password" name="password1" id="password1" required>
+                              <label for="password2" class="password_label">Повторите пароль</label>
+                            <input type="password" name="password2" id="password2" required>
+                             <label for="name" class="email_label">Ваше имя</label>
+                            <input type="text" name="name" id="name" required>
+                             <br/><a href="/login">Войти</a>
+                             {% if error %}
+                                <script>alert("Ошибка! Пользователь с такой почтой уже зарегистрирован или пароли не совпадают")</script>
+                            {% endif %}
+                         </div>
+                        <div class="confirm_button">
+                            <input type="submit" id="submit" class="submit" value="Зарегистрироваться">
+
+                        </div>
+
+
+
+                     </div>
+
+                 </form>
+            </div>
+
+        </div>
+		</div>
+
+	</body>
+</html>

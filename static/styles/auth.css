@@ -1,0 +1,328 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #7596cf;
+    overflow-y: hidden;
+}
+html{
+    overflow-y: overlay;
+}
+
+input[type=text], input[type=password]{
+    width: 90%;
+    height: 60px;
+    padding: 3% 5%;
+    margin: 3% 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    font-size: 25px;
+    border-radius: 10px;
+
+    font-family: Calibri;
+}
+
+
+
+input[type=submit] {
+    background-color: #ffffff;
+    /*color: #7596cf;*/
+    height: 60px;
+    padding: 14px 20px;
+    margin: 8px 5%;
+    cursor: pointer;
+    width: 90%;
+    border-radius: 10px;
+    display: table-cell;
+    border: 1px solid #ccc;
+
+    font-family: Calibri;
+    /*box-shadow: #a5a5a5 0 0 5px;*/
+    font-size: 25px;
+    text-align: center;
+    /*text-shadow: black 2px 2px 0;*/
+}
+
+input[type=submit]:hover {
+    background-color: #7596cf;
+    color: white;
+}
+
+.container {
+    height: 99%;
+    width: 99%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+div.login_form{
+    height: auto;
+    width: 480px;
+    position: absolute;
+    /*border: 3px solid;*/
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: #405e90 0 0 30px;
+    background-color: white;
+}
+
+div.top-color{
+    height: 100px;
+    width: 100%;
+    background-color: #7596cf;
+    z-index: 999;
+    margin-bottom: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*div.password, div.login{*/
+/*    padding-top: 3%;*/
+/*}*/
+
+div.confirm_button{
+    bottom: 0;
+    /*width: 90%;*/
+    margin: 3% auto;
+    /*position: absolute;*/
+}
+
+
+form.login_form{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background: white;
+}
+
+div.login-form-content{
+    margin: 0 5% 5% 5%;
+    height: 70%;
+
+}
+
+div.login{
+    height: 50%;
+    /*display: flex;*/
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+}
+
+p.top_color_header{
+    font-family: Calibri;
+
+    font-size: 45px;
+    text-align: center;
+    vertical-align: center;
+    color: white;
+    /*text-shadow: black 2px 2px 0;*/
+    position: absolute;
+    /*margin-top: auto;*/
+    /*margin-bottom: auto;*/
+
+
+}
+
+.email_label,
+.password_label{
+    font-family: Calibri;
+    font-size: 25px;
+
+}
+
+.error{
+    width: 100%;
+    background-color: red;
+    color: white;
+    border: 3px solid darkred;
+    border-radius: 7px;
+    font-family: Calibri;
+    font-size: 24px;
+    text-align: center;
+    margin: 0;
+}
+
+.error_container{
+    z-index: 9999;
+    width: 100%;
+    height: 64px;
+    align-self: normal;
+}
+/*}*/
+
+/*@media (max-width: 768px) {*/
+/*    body {*/
+/*        font-family: Arial, Helvetica, sans-serif;*/
+/*        !*background: #6C50B0;*!*/
+/*    }*/
+/*    div.top-color{*/
+/*        height: 20%;*/
+/*        position: absolute;*/
+/*        width: 100%;*/
+/*        background-color: #6C50B0;*/
+/*        z-index: 999;*/
+/*        !*margin-bottom: 5%;*!*/
+/*        display: flex;*/
+/*        justify-content: center;*/
+/*        align-items: center;*/
+/*        top: 0;*/
+/*        left: 0;*/
+/*    }*/
+
+/*    .top_color_header{*/
+/*        color: white;*/
+/*        font-family: Calibri;*/
+/*        font-size: 45px;*/
+/*        text-align: center;*/
+/*        vertical-align: center;*/
+/*        !*text-shadow: black 2px 2px 0;*!*/
+
+/*        !*margin-top: auto;*!*/
+/*        !*margin-bottom: auto;*!*/
+/*    }*/
+/*    input[type=text], input[type=number] {*/
+/*        width: 100%;*/
+/*        height: 40%;*/
+/*        padding: 3% 4%;*/
+/*        margin: 3% 0;*/
+/*        display: inline-block;*/
+/*        border: 1px solid #ccc;*/
+/*        box-sizing: border-box;*/
+/*        font-size: 18px;*/
+/*        border-radius: 10px;*/
+
+/*        font-family: Calibri;*/
+/*    }*/
+
+
+
+/*    input[type=submit] {*/
+/*        background-color: #04AA6D;*/
+/*        color: white;*/
+/*        padding: 10px 13px;*/
+/*        margin: 5px 0;*/
+/*        border: none;*/
+/*        cursor: pointer;*/
+/*        width: 100%;*/
+/*        border-radius: 6px;*/
+/*        display: table-cell;*/
+
+/*        font-family: Calibri;*/
+
+/*        font-size: 20px;*/
+/*        text-align: center;*/
+/*        !*text-shadow: black 2px 2px 0;*!*/
+/*    }*/
+
+/*    !*input[type=submit]:hover {*!*/
+/*    !*    opacity: 0.8;*!*/
+/*    !*}*!*/
+
+/*    !*.container {*!*/
+/*    !*    height: 99%;*!*/
+/*    !*    width: 99%;*!*/
+/*    !*    position: absolute;*!*/
+/*    !*    display: flex;*!*/
+/*    !*    align-items: center;*!*/
+/*    !*    justify-content: center;*!*/
+/*    !*    padding: 0;*!*/
+/*    !*    top:0;*!*/
+/*    !*    left:0;*!*/
+/*    !*}*!*/
+
+/*    div.login_form{*/
+/*        height: 320px;*/
+/*        width: 320px;*/
+/*        position: absolute;*/
+/*        top: 0;*/
+/*        left: 0;*/
+/*        display: flex;*/
+/*        !*border: 3px solid;*!*/
+/*        !*border-radius: 18px;*!*/
+/*        !*overflow: hidden;*!*/
+/*        !*box-shadow: #4a3287 0 0 20px;*!*/
+/*    }*/
+/*    form.login_form{*/
+/*        display: flex;*/
+/*    }*/
+
+/*    !*div.top-color{*!*/
+/*    !*    height: 20%;*!*/
+/*    !*    width: 100%;*!*/
+/*    !*    background-color: #04AA6D;*!*/
+/*    !*    z-index: 999;*!*/
+/*    !*    margin-bottom: 5%;*!*/
+/*    !*    display: flex;*!*/
+/*    !*    justify-content: center;*!*/
+/*    !*    align-items: center;*!*/
+/*    !*}*!*/
+
+
+/*    !*!*div.password, div.login{*!*!*/
+/*    !*!*    padding-top: 3%;*!*!*/
+/*    !*!*}*!*!*/
+
+/*    !*div.confirm_button{*!*/
+/*    !*    bottom: 0;*!*/
+/*    !*    width: 90%;*!*/
+/*    !*    margin-right: auto;*!*/
+/*    !*    margin-left: auto;*!*/
+/*    !*    margin-bottom: 3%;*!*/
+/*    !*    position: absolute;*!*/
+/*    !*}*!*/
+
+
+/*    !*form.login_form{*!*/
+/*    !*    height: 100%;*!*/
+/*    !*    width: 100%;*!*/
+/*    !*    margin: 0;*!*/
+/*    !*    background: white;*!*/
+/*    !*}*!*/
+
+/*    !*div.login-form-content{*!*/
+/*    !*    margin: 0 5% 5% 5%;*!*/
+/*    !*    height: 70%;*!*/
+
+/*    !*}*!*/
+
+/*    !*div.login{*!*/
+/*    !*    height: 50%;*!*/
+/*    !*    !*display: flex;*!*!*/
+/*    !*    justify-content: center;*!*/
+/*    !*    align-content: center;*!*/
+/*    !*    text-align: center;*!*/
+/*    !*}*!*/
+
+/*    !*p.top_color_header{*!*/
+/*    !*    font-family: Calibri;*!*/
+
+/*    !*    font-size: 45px;*!*/
+/*    !*    text-align: center;*!*/
+/*    !*    vertical-align: center;*!*/
+/*    !*    color: white;*!*/
+/*    !*    !*text-shadow: black 2px 2px 0;*!*!*/
+/*    !*    position: absolute;*!*/
+/*    !*    !*margin-top: auto;*!*!*/
+/*    !*    !*margin-bottom: auto;*!*!*/
+
+
+/*    !*}*!*/
+
+/*    !*.username_label{*!*/
+/*    !*    font-family: Calibri;*!*/
+/*    !*    font-size: 25px;*!*/
+
+/*    !*}*!*/
+/*}*/
+
+
+
+
+
+
+

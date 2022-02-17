@@ -1,0 +1,174 @@
+<html>
+	<head>
+		<title>Stats Page</title>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="{{ url_for('static', filename='styles/stats.css') }}">
+		<link rel="stylesheet" href="stats.css">
+		<script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
+		<script src="{{url_for('static', filename='scripts/checkboxes.js')}}"></script>
+		<script src='https://cdnjs.cloudflare.com/ajax/libs/regression/1.4.0/regression.min.js'></script>
+	</head>
+	<body onload="FiltersRender({{rows[1]}}, {{rows[0]}}); linereg_diagram({{rows[1]}})">
+		<div class="topbar">
+			<div class="topbar_container">
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/profile'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/perm_identity_white_24dp.svg') }}"
+							 alt = "Личный кабинет">
+					</button>
+					<p class="topbar_text">Мой аккаунт</p>
+				</div>
+
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/info_white_24dp.svg') }}"
+							 alt = "Иформация">
+					</button>
+					<p class="topbar_text">Информация</p>
+				</div>
+
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/operations'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/payments_white_24dp.svg') }}"
+							 alt = "Операции">
+					</button>
+					<p class="topbar_text">Операции</p>
+				</div>
+
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/stats'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/assessment_white_24dp.svg') }}"
+							 alt = "Статистика">
+					</button>
+					<p class="topbar_text">Статистика</p>
+				</div>
+
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/categories'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/category_white_24dp.svg') }}"
+							 alt = "Категории">
+					</button>
+					<p class="topbar_text">Категории</p>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="fixed_containers">
+				<div class="fixed_container" id="fixed_container">
+					<div class="fixed_header">Фильтры</div>
+					<div class="filters_container">
+						<div class="categories_container" onload="">
+							{% for row in rows[0] %}
+								<div class="categorie">
+									<input class="categorie_checkbox" type="checkbox"
+										   id='categorie_{{row[0]}}'
+										   name='categorie_{{row[0]}}'
+										   onclick="CheckBoxCategorie('{{row[1]}}', this, false)"
+										   checked="checked"/>
+									<script>CheckBoxCategorie("{{row[1]}}", document.getElementById('categorie_{{row[0]}}'))</script>
+									<label class="categorie_checkbox-label" for='categorie_{{row[0]}}'>{{row[2]}}</label>
+								</div>
+							{% endfor %}
+						</div>
+						<div class="dates_filter_container">
+							<div class="dates_text">
+								С
+							</div>
+							<div class="dates_begin">
+								<input id="date_start" type="date" class="dates_begin_input" >
+							</div>
+							<div class="dates_text">
+								По
+							</div>
+							<div class="dates_end">
+								<input id="date_end" type="date" class="dates_end_input" >
+							</div>
+						</div>
+						<div class="add_button_container">
+							<button class="add_button"
+									onclick="FiltersRender({{rows[1]}}, {{rows[0]}})">
+								<div class="add_button_text">
+									Применить
+								</div>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="fixed_container" id="balance_container">
+					<p class="balance_header">Ваш текущий баланс:</p>
+					<div class="balance_amount" data-amount="{{rows[3][0]}}.{{rows[3][1]}}">
+						<span class="balance_amount_big">{{rows[3][0]}}</span>
+						<span class="balance_amount_small">,{{rows[3][1]}}</span>
+					</div>
+					<div class="inflation_cont">
+						<p class="inf_balance_header">Инфляция 3 месяца</p>
+						<div class="inf_balance_amount" data-amount="{{rows[4][0][0]}}.{{rows[4][0][1]}}">
+							<span class="inf_balance_amount_big">{{rows[4][0][0]}}</span>
+							<span class="inf_balance_amount_small">,{{rows[4][0][1]}}</span>
+						</div>
+						<p class="inf_balance_header">Инфляция 6 месяцев</p>
+						<div class="inf_balance_amount" data-amount="{{rows[4][1][0]}}.{{rows[4][1][1]}}">
+							<span class="inf_balance_amount_big">{{rows[4][1][0]}}</span>
+							<span class="inf_balance_amount_small">,{{rows[4][1][1]}}</span>
+						</div>
+						<p class="inf_balance_header">Инфляция 1 год</p>
+						<div class="inf_balance_amount" data-amount="{{rows[4][2][0]}}.{{rows[4][2][1]}}">
+							<span class="inf_balance_amount_big">{{rows[4][2][0]}}</span>
+							<span class="inf_balance_amount_small">,{{rows[4][2][1]}}</span>
+						</div>
+						<p class="inf_balance_header" style="opacity: 20%">Данные взяты с сайта fxtop.com</p>
+					</div>
+				</div>
+
+				<div class="fixed_container" id="export_container">
+					<div class="fixed_header">Экспорт</div>
+					<div class="dates_filter_container">
+						<div class="dates_text">
+							С
+						</div>
+						<div class="dates_begin">
+							<input id="export_date_start" type="date" class="dates_begin_input" >
+						</div>
+						<div class="dates_text">
+							По
+						</div>
+						<div class="dates_end">
+							<input id="export_date_end" type="date" class="dates_end_input" >
+						</div>
+					</div>
+					<div class="export_buttons">
+						<div class="export_btn_cont">
+							<input type="button" id="xslx_export" class="export_button" onclick="exportStats('xlsx')">
+							<label for="xslx_export" class="export_button_text">*.xlsx</label>
+						</div>
+						<div class="export_btn_cont">
+							<input type="button" id="csv_export" class="export_button" onclick="exportStats('csv')">
+							<label for="csv_export" class="export_button_text">*.csv</label>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+			<div class="pie_diagrams">
+				<div class="pie_diagram_cont" id="minus_diagram"></div>
+				<div class="pie_diagram_cont" id="plus_diagram"></div>
+			</div>
+
+			<div class="linereg_diagram" id="linereg_diagram">
+				<div class="forecast" id="forecast"></div>
+
+			</div>
+		</div>
+	</body>
+	<script src="{{ url_for('static', filename='scripts/stats.js') }}"></script>
+
+</html>

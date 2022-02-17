@@ -1,0 +1,114 @@
+<html>
+	<head>
+		<title>Categories</title>
+		<meta charset="UTF-8">
+<!--		<link rel="stylesheet" href="categories.css">-->
+		<link rel="preload" href= "{{ url_for('static',filename='styles/categories.css') }}" as="style">
+		<link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/categories.css') }}"/>
+		<link rel="preload" href="{{ url_for('static', filename='icons/edit_black_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/done_black_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/close_white_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/info_white_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/payments_white_24dp.svg') }}" as="image">
+		<link rel="preload" href="{{ url_for('static', filename='icons/perm_identity_white_24dp.svg') }}" as="image">
+		<script src="{{ url_for('static', filename='scripts/checkboxes.js') }}"></script>
+
+	</head>
+	<body>
+		<div class="topbar">
+				<div class="topbar_container">
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/profile'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/perm_identity_white_24dp.svg') }}"
+								 alt = "Личный кабинет">
+						</button>
+						<p class="topbar_text">Мой аккаунт</p>
+					</div>
+
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/info_white_24dp.svg') }}"
+								 alt = "Иформация">
+						</button>
+						<p class="topbar_text">Информация</p>
+					</div>
+
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/operations'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/payments_white_24dp.svg') }}"
+								 alt = "Операции">
+						</button>
+						<p class="topbar_text">Операции</p>
+					</div>
+
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/stats'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/assessment_white_24dp.svg') }}"
+								 alt = "Статистика">
+						</button>
+						<p class="topbar_text">Статистика</p>
+					</div>
+
+					<div class="topbar_tab">
+						<button class="topbar_button" onclick="window.location.href = '/categories'">
+							<img class="topbar_icon"
+								 src="{{ url_for('static', filename='icons/category_white_24dp.svg') }}"
+								 alt = "Категории">
+						</button>
+						<p class="topbar_text">Категории</p>
+					</div>
+
+				</div>
+
+			</div>
+		<div class="container">
+			<img class="popup_close" onclick="PopupWindowHide({{rows[0]}})"
+				 src="{{ url_for('static',filename='icons/close_white_24dp.svg')}}"
+				 id="popup_close" alt="Закрыть">
+
+			<div class="dim" id="dim" onclick="PopupWindowHide({{rows[0]}})"></div>
+			<div class="popup_container" id="popup">
+				<form method="post">
+					<input type="text" style="display: none" id="popup_id" name="popup_id">
+					<input type="color" class="popup_top_color" id="popup_color_input" name="popup_color_input">
+					<div class="popup_inputs_cont">
+						<input class="popup_name_input" id="popup_name_input" type="text" name="popup_name_input">
+						<button class="popup_submit_btn" type="submit"></button>
+					</div>
+				</form>
+
+			</div>
+			<div class="categories_container">
+				<div class="new_ctg" onclick="PopupWindowShow({{rows[1]}}, '', '#000000')">
+					Новая категория
+				</div>
+			</div>
+			<div class="categories_container">
+				{% for row in rows[0] %}
+					<div class="categorie" data-id="{{row[0]}}">
+						<div class="ctg_color" style="background-color: {{row[2]}}"></div>
+						<div class="ctg_cnt">
+							<div class="ctg_name">
+								{{row[1]}}
+							</div>
+							<div class="ctg_id">
+								ID: {{row[0]}}
+							</div>
+							<div class="ctg_edit_button_cont" onclick="PopupWindowShow({{row[0]}}, '{{row[1]}}', '{{row[2]}}')">
+								<input type="button" id="ctg_{{row[0]}}_edit_button" class="ctg_edit_button">
+								<label class="ctg_edit_btn_label" for="ctg_{{row[0]}}_edit_button"
+								onclick="PopupWindowShow({{row[0]}}, '{{row[1]}}', '{{row[2]}}')">
+									Редактировать</label>
+							</div>
+						</div>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</body>
+	<script src="{{url_for('static',filename='scripts/categories.js')}}"></script>
+</html>
