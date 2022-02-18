@@ -7,8 +7,19 @@
 		<script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-base.min.js"></script>
 		<script src="{{url_for('static', filename='scripts/checkboxes.js')}}"></script>
 		<script src='https://cdnjs.cloudflare.com/ajax/libs/regression/1.4.0/regression.min.js'></script>
+
 	</head>
-	<body onload="FiltersRender({{rows[1]}}, {{rows[0]}}); linereg_diagram({{rows[1]}})">
+	<body onload=
+				  "
+				  calculate_inflation(3, Number('{{rows[3][0]}}'.replaceAll(' ', '') + '.'+ '{{rows[3][1]}}'))
+				  calculate_inflation(6, Number('{{rows[3][0]}}'.replaceAll(' ', '') + '.'+ '{{rows[3][1]}}'))
+				  calculate_inflation(12, Number('{{rows[3][0]}}'.replaceAll(' ', '') + '.'+ '{{rows[3][1]}}'))
+				  FiltersRender({{rows[1]}}, {{rows[0]}});
+					linereg_diagram({{rows[1]}})
+
+
+">
+		<script>alert(calculate_inflation(1, 100))</script>
 		<div class="topbar">
 			<div class="topbar_container">
 				<div class="topbar_tab">
@@ -109,23 +120,33 @@
 					</div>
 					<div class="inflation_cont">
 						<p class="inf_balance_header">Инфляция 3 месяца</p>
-						<div class="inf_balance_amount" data-amount="{{rows[4][0][0]}}.{{rows[4][0][1]}}">
-							<span class="inf_balance_amount_big">{{rows[4][0][0]}}</span>
-							<span class="inf_balance_amount_small">,{{rows[4][0][1]}}</span>
+						<div class="inf_balance_amount" id="inf-3"
+							 data-amount="{{rows[4][0][0]}}.{{rows[4][0][1]}}">
+<!--							<span class="inf_balance_amount_big">{{rows[4][0][0]}}</span>-->
+<!--							<span class="inf_balance_amount_small">,{{rows[4][0][1]}}</span>-->
+							<span class="inf_balance_amount_big"></span>
+							<span class="inf_balance_amount_small"></span>
 						</div>
 						<p class="inf_balance_header">Инфляция 6 месяцев</p>
-						<div class="inf_balance_amount" data-amount="{{rows[4][1][0]}}.{{rows[4][1][1]}}">
-							<span class="inf_balance_amount_big">{{rows[4][1][0]}}</span>
-							<span class="inf_balance_amount_small">,{{rows[4][1][1]}}</span>
+						<div class="inf_balance_amount" id="inf-6"
+							 data-amount="{{rows[4][1][0]}}.{{rows[4][1][1]}}">
+<!--							<span class="inf_balance_amount_big">{{rows[4][1][0]}}</span>-->
+<!--							<span class="inf_balance_amount_small">,{{rows[4][1][1]}}</span>-->
+							<span class="inf_balance_amount_big"></span>
+							<span class="inf_balance_amount_small"></span>
 						</div>
-						<p class="inf_balance_header">Инфляция 1 год</p>
-						<div class="inf_balance_amount" data-amount="{{rows[4][2][0]}}.{{rows[4][2][1]}}">
-							<span class="inf_balance_amount_big">{{rows[4][2][0]}}</span>
-							<span class="inf_balance_amount_small">,{{rows[4][2][1]}}</span>
+						<p class="inf_balance_header" >Инфляция 1 год</p>
+						<div class="inf_balance_amount" id="inf-12"
+							 data-amount="{{rows[4][2][0]}}.{{rows[4][2][1]}}">
+<!--							<span class="inf_balance_amount_big">{{rows[4][2][0]}}</span>-->
+<!--							<span class="inf_balance_amount_small">,{{rows[4][2][1]}}</span>-->
+							<span class="inf_balance_amount_big"></span>
+							<span class="inf_balance_amount_small"></span>
 						</div>
-						<p class="inf_balance_header" style="opacity: 20%">Данные взяты с сайта fxtop.com</p>
+<!--						<p class="inf_balance_header" style="opacity: 20%">Данные взяты с сайта fxtop.com</p>-->
 					</div>
 				</div>
+
 
 				<div class="fixed_container" id="export_container">
 					<div class="fixed_header">Экспорт</div>

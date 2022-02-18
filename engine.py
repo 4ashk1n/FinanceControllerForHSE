@@ -375,7 +375,8 @@ def balance_by_inf(summ, type):
             soup = BeautifulSoup(response, "lxml")
 
             return float(soup.find("a", title="конвертация валют на дату окончания").text.split("RUB")[0].replace(' ',''))
-        except:
+        except Exception as e:
+            print(e)
             return 0.0
     return 0.0
 

@@ -291,3 +291,40 @@ function setTheoryData(rawData, coeff, len) {
   }
   return theoryData;
 }
+
+let CPIs = {
+    "2021-1": 5.19,
+    "2021-2": 5.67,
+    "2021-3": 5.78,
+    "2021-4": 5.52,
+    "2021-5": 6.01,
+    "2021-6": 6.51,
+    "2021-7": 6.47,
+    "2021-8": 6.69,
+    "2021-9": 7.41,
+    "2021-10": 8.14,
+    "2021-11": 8.40,
+    "2021-12": 8.39,
+    "2022-1": 8.74
+}
+
+function calculate_inflation(monthes, amount) {
+    let FV = amount;
+    let t = monthes / 12
+    let new_date = new Date()
+    new_date.setMonth(new_date.getMonth() - monthes)
+    let r = CPIs[`${new_date.getFullYear()}-${new_date.getMonth()}`] / 100
+
+    let result = (FV / Math.pow((1 + r), t)).toFixed(2)
+    // return parse_amount(result)
+    document.getElementById(`inf-${monthes}`)
+        .getElementsByClassName('inf_balance_amount_big')[0]
+        .innerHTML = parse_amount(result)[0]
+    document.getElementById(`inf-${monthes}`)
+        .getElementsByClassName('inf_balance_amount_small')[0]
+        .innerHTML = "," + parse_amount(result)[1]
+}
+
+function parse_amount(amount) {
+    return String(amount).split('.')
+}

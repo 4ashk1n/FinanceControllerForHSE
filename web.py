@@ -113,7 +113,7 @@ def operations_page():
 
     except Exception as e:
         print(e)
-        return redirect('/logout')
+        return redirect('/')
 
 
 @app.route('/operations', methods=['POST'])
@@ -160,7 +160,7 @@ def operations_POST():
         return redirect('/operations')
     except Exception as e:
         print(e)
-        return redirect('/logout')
+        return redirect('/')
 
 # rows = [
 #     [
@@ -203,9 +203,13 @@ def stats_GET():
         rows = [[], [], user.id,
                 balance,
                 [
-                    parse_amount(balance_by_inf(user.balance, 0)),
-                    parse_amount(balance_by_inf(user.balance, 1)),
-                    parse_amount(balance_by_inf(user.balance, 2))
+                    # Старый калькулятор инфляции был временно заменён статичным (срок работы: фев - апр 2022) из-за проблем с хостинг-сервером
+                    # parse_amount(balance_by_inf(user.balance, 0)),
+                    # parse_amount(balance_by_inf(user.balance, 1)),
+                    # parse_amount(balance_by_inf(user.balance, 2))
+                    (0, 0),
+                    (0, 0),
+                    (0, 0)
                 ]]
         # print(categories)
         # print(operations)
@@ -232,7 +236,7 @@ def stats_GET():
         return render_template('stats.html', rows=rows)
     except Exception as e:
         print(e)
-        return redirect('/logout')
+        return redirect('/')
 
 @app.route('/categories', methods=['GET'])
 def categories_GET():
@@ -255,7 +259,7 @@ def categories_GET():
         return render_template('categories.html', rows=rows)
     except Exception as e:
         print(e)
-        return redirect('/logout')
+        return redirect('/')
 
 @app.route('/categories', methods=['POST'])
 def categories_POST():
@@ -282,7 +286,7 @@ def categories_POST():
         return redirect('/categories')
     except Exception as e:
         print(e)
-        return redirect('/logout')
+        return redirect('/')
 
 
 @app.route('/download_statistic/from=<start_date>&to=<finish_date>&format=<format>')
@@ -331,7 +335,7 @@ def download_stat(start_date, finish_date, format):
         return render_template("download.html", rows=[name])
     except Exception as e:
         print(e)
-        return redirect('/logout')
+        return redirect('/')
 
 
 @app.route('/profile', methods=['GET'])
@@ -352,7 +356,7 @@ def profileGET():
         return render_template('profile.html', rows=rows, error=0)
     except Exception as e:
         print(e)
-        return redirect('/logout')
+        return redirect('/')
 
 @app.route('/profile', methods=['POST'])
 def profilePOST():
@@ -411,7 +415,7 @@ def profilePOST():
         return redirect('/profile')
     except Exception as e:
         print(e)
-        return redirect('/logout')
+        return redirect('/')
 
 @app.route('/logout')
 def logout():
