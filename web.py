@@ -323,11 +323,14 @@ def download_stat(start_date, finish_date, format):
         df = pd.DataFrame(data)
 
         name = f"{user.id}.{format}"
+        cur_path = os.getcwd()
+        cur_path = cur_path.replace('\\', '/')
+
         if format == 'csv':
-            df.to_csv(rf"{os.getcwd()}\static\exports\{user.id}.csv",
+            df.to_csv(rf"{cur_path}/static/exports/{user.id}.csv",
                       encoding='utf-8-sig', sep='\t', index=False)
         elif format == 'xlsx':
-            df.to_excel(rf"{os.getcwd()}\static\exports\{user.id}.xlsx",
+            df.to_excel(rf"{cur_path}/static/exports/{user.id}.xlsx",
                         encoding='utf-8')
         else:
             return redirect("/")
