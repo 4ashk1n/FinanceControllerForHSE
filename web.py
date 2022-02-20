@@ -216,13 +216,14 @@ def stats_GET():
 
         for op in operations:
             op: Operation
-            rows[1].append([
-                op.id,
-                op.type,
-                op.category.id,
-                str(op.date),
-                op.amount
-            ])
+            if op.user.id == user.id:
+                rows[1].append([
+                    op.id,
+                    op.type,
+                    op.category.id,
+                    str(op.date),
+                    op.amount
+                ])
 
         return render_template('stats.html', rows=rows)
     except Exception as e:
