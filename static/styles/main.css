@@ -68,3 +68,29 @@ html{
     display: block;
     box-shadow: #b8b8b8 0 0 5px;
 }
+
+.container{
+    width: 60%;
+    /*padding-right: 20%;*/
+    padding: 150px 20% 50px;
+    /*position: absolute;*/
+
+}
+
+body{
+    font-family: Calibri;
+    font-size: 20px;
+}
+
+h1{
+    font-size: 50px;
+}
+h2{
+    font-size: 40px;
+}
+h3{
+    font-size: 35px;
+}
+h4{
+    font-size: 25px;
+}
