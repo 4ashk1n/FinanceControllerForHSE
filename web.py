@@ -112,7 +112,8 @@ def operations_page():
 
 @app.route('/operations', methods=['POST'])
 def operations_POST():
-    try:
+    # try:
+    for k in range(1):
         session['last_page'] = '/operations'
         if "user_id" not in session:
             return redirect('/login')
@@ -152,9 +153,10 @@ def operations_POST():
             )
 
         return redirect('/operations')
-    except Exception as e:
-        print(e)
-        return redirect('/')
+
+    # except Exception as e:
+    #     print(e)
+    #     return redirect('/')
 
 # rows = [
 #     [
