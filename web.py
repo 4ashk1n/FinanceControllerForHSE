@@ -112,8 +112,7 @@ def operations_page():
 
 @app.route('/operations', methods=['POST'])
 def operations_POST():
-    # try:
-    for k in range(1):
+    try:
         session['last_page'] = '/operations'
         if "user_id" not in session:
             return redirect('/login')
@@ -128,8 +127,7 @@ def operations_POST():
         new_amount = float(new_amount_big + '.' + new_amount_small)
 
         id = request.form.get('popup_op_id')
-        # print(new_type)
-        # print(new_date)
+
         op = operation_by_id(int(id))
         op: Operation
         if op:
@@ -154,9 +152,9 @@ def operations_POST():
 
         return redirect('/operations')
 
-    # except Exception as e:
-    #     print(e)
-    #     return redirect('/')
+    except Exception as e:
+        print(e)
+        return redirect('/')
 
 # rows = [
 #     [

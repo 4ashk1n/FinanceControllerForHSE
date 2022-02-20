@@ -137,6 +137,7 @@ class User:
         DB.commit()
 
     def balanceChange(self, plus):
+        self.balance = float("{0:.2f}".format(self.balance))
         self.balance += plus
         self.balance = float("{0:.2f}".format(self.balance))
         self.dbUpdate()
