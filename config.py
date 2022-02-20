@@ -11,18 +11,18 @@ import random
 
 requests.packages.urllib3.util.connection.HAS_IPV6 = False
 
+# UNCOMMENT TO USE NGROK:
 # ssh_tunnel = ngrok.connect(302)
 # print(ssh_tunnel)
 
 
 DB = sql.connect('DataBase.db', check_same_thread=False)
 
-# ЮЗЕРУ НЕ ТРОГАТЬ
 app = Flask(__name__)
 
 app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
-# Session(app)
+
 
 users = []
 operations = []

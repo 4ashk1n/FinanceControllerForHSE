@@ -1,61 +1,277 @@
 <html>
 	<head>
-		<title>Main Page</title>
+		<title>Финансовый контролер</title>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="{{ url_for('static', filename='styles/main.css') }}">
 	</head>
 	<body>
-		<div class="container">
-			<div class="topbar">
-				<div class="topbar_container">
-					<div class="topbar_tab">
-						<button class="topbar_button" onclick="window.location.href = '/profile'">
-							<img class="topbar_icon"
-								 src="{{ url_for('static', filename='icons/perm_identity_white_24dp.svg') }}"
-								 alt = "Личный кабинет">
-						</button>
-						<p class="topbar_text">Мой аккаунт</p>
-					</div>
+		<div class="topbar">
+			<div class="topbar_container">
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/profile'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/perm_identity_white_24dp.svg') }}"
+							 alt = "Мой профиль">
+					</button>
+					<p class="topbar_text">Мой профиль</p>
+				</div>
 
-					<div class="topbar_tab">
-						<button class="topbar_button" onclick="window.location.href = '/'">
-							<img class="topbar_icon"
-								 src="{{ url_for('static', filename='icons/info_white_24dp.svg') }}"
-								 alt = "Иформация">
-						</button>
-						<p class="topbar_text">Информация</p>
-					</div>
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/info_white_24dp.svg') }}"
+							 alt = "Иформация">
+					</button>
+					<p class="topbar_text">Информация</p>
+				</div>
 
-					<div class="topbar_tab">
-						<button class="topbar_button" onclick="window.location.href = '/operations'">
-							<img class="topbar_icon"
-								 src="{{ url_for('static', filename='icons/payments_white_24dp.svg') }}"
-								 alt = "Операции">
-						</button>
-						<p class="topbar_text">Операции</p>
-					</div>
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/operations'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/payments_white_24dp.svg') }}"
+							 alt = "Операции">
+					</button>
+					<p class="topbar_text">Операции</p>
+				</div>
 
-					<div class="topbar_tab">
-						<button class="topbar_button" onclick="window.location.href = '/stats'">
-							<img class="topbar_icon"
-								 src="{{ url_for('static', filename='icons/assessment_white_24dp.svg') }}"
-								 alt = "Статистика">
-						</button>
-						<p class="topbar_text">Статистика</p>
-					</div>
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/stats'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/assessment_white_24dp.svg') }}"
+							 alt = "Статистика">
+					</button>
+					<p class="topbar_text">Статистика</p>
+				</div>
 
-					<div class="topbar_tab">
-						<button class="topbar_button" onclick="window.location.href = '/categories'">
-							<img class="topbar_icon"
-								 src="{{ url_for('static', filename='icons/category_white_24dp.svg') }}"
-								 alt = "Категории">
-						</button>
-						<p class="topbar_text">Категории</p>
-					</div>
-
+				<div class="topbar_tab">
+					<button class="topbar_button" onclick="window.location.href = '/categories'">
+						<img class="topbar_icon"
+							 src="{{ url_for('static', filename='icons/category_white_24dp.svg') }}"
+							 alt = "Категории">
+					</button>
+					<p class="topbar_text">Категории</p>
 				</div>
 
 			</div>
+
+		</div>
+		<div class="container">
+			<h1 id="-">Финансовый контролер</h1>
+			<h2 id="-">О проекте</h2>
+			<p>Это приложение, разработанное для предпрофессиональной
+				олимпиады 2022 (кейс НИУ ВШЭ).</p>
+			<p>В данный момент доступен по адресу
+				<a href="http://4ashk1n.pythonanywhere.com/">http://4ashk1n.pythonanywhere.com/</a></p>
+			<p>Демонстрация работы:
+				<a href="https://www.youtube.com/watch?v=EZGHHzGjdt0">https://www.youtube.com/watch?v=EZGHHzGjdt0</a></p>
+			<h2 id="-">Использование</h2>
+			<h3 id="-">Авторизация</h3>
+			<ul>
+				<li>Первым делом вы должны войти в свой аккаунт
+					или зарегистрироваться на сайте</li>
+				<li>Страница авторизации откроется сразу, как только
+					вы попробуете открыть какую-нибудь вкладку
+					(кроме вкладки &quot;Информация&quot;)</li>
+				<li>Когда вы введете правильные логин и пароль
+					(или зарегистрируетесь), вы будете переадресованы на
+					вкладку, которую вы хотели посетить изначально</li>
+			</ul>
+			<h3 id="-">Категории</h3>
+			<ul>
+				<li>Каждая операция имеет категорию, к которой она
+					принадлежит. Поэтому, прежде чем добавлять операции,
+					необходимо создать категории</li>
+				<li>Чтобы создать категорию, нажмите кнопку &quot;Новая категория&quot;</li>
+				<li>Чтобы отредактировать существующую категорию, нажмите
+					кнопку &quot;Редактировать&quot; внутри ячейки с выбранной категорией</li>
+				<li>Перед вами появится всплывающее окно. Вы изменить название
+					категории в поле для ввода текста. Также вы можете выбрать цвет
+					для категории, нажав на шапку окна</li>
+			</ul>
+			<h3 id="-">Операции</h3>
+			<ul>
+				<li>Чтобы добавить операцию, нажмите кнопку &quot;Добавить операцию&quot;</li>
+				<li>Чтобы узнать подробную информацию об операции или отредактировать
+					ее, нажмите на ячейку с нужной операцией</li>
+				<li>Появится всплывающее окно</li>
+				<li>Чтобы изменить данные об операции, нажмите на кнопку в виде
+					карандаша, которая находится около названия категории операции</li>
+				<li>Вы можете изменить категорию, к которой относится операция,
+					описание операции, дату и время, а также тип операции и сумму</li>
+				<li>Чтобы сохранить введенные данные, нажмите на кнопку в виде
+					галочки в правой верхней части всплывающего окна</li>
+				<li>На левой стороне страницы находятся фильтры и данные о балансе</li>
+				<li>Фильтры применяются автоматически при их изменении</li>
+				<li>В нижней части блока с фильтрами находится кнопка-переключатель
+					&quot;Режима базовой операции&quot;<ul>
+						<li>Когда этот режим активирован, вам надо выбрать операцию,
+							сумма которой станет базовой для пересчета сумм
+							остальных операций и баланса</li>
+						<li>Суммы операций пересчитаются в условных единицах -
+							суммах выбранной операции</li>
+						<li><em>Например: вы потратили 150 рублей в супермаркете и
+							1,500 рублей в салоне красоты. Если вы выберете первую
+							операцию в качестве базовой, сумма второй станет
+							равной 10 условным единицам</em></li>
+					</ul>
+				</li>
+			</ul>
+			<h3 id="-">Статистика</h3>
+			<ul>
+				<li><h4 id="-">Круговые диаграммы</h4>
+					<ul>
+						<li>Показывают общие траты по категориям</li>
+						<li>Могут быть отфильтрованы по категориям и датам</li>
+						<li>Если навести на определенный цвет, появится общее
+							значение трат по данной категории</li>
+					</ul>
+				</li>
+				<li><h4 id="-">Баланс относительно инфляции</h4>
+					<ul>
+						<li>На левой стороне страницы есть блок с балансом,
+							расчитанным относительно инфляции за 3, 6 и 12 месяцев</li>
+						<li>Данные об инфляции взяты только для России</li>
+					</ul>
+				</li>
+				<li><h4 id="-">Экспорт данных</h4>
+					<ul>
+						<li>Вы можете экспортировать данные о своих операциях
+							за определенный временной период</li>
+						<li>Чтобы выбрать формат экспортированного файла, нажмите
+							на одну из двух кнопок: <em>*.xlsx</em> или <em>*.csv</em></li>
+					</ul>
+				</li>
+				<li><h4 id="-">Прогноз расходов на текущий месяц</h4>
+					<ul>
+						<li>Прогноз расходов составляется при помощи линейной регрессии</li>
+						<li>Над диаграммой написан общий прогноз на конец текущего
+							месяца. Вы можете также посмотреть прогноз на каждый
+							из дней месяца, если наведете на определенную точку
+							на графике линейной регрессии</li>
+					</ul>
+				</li>
+			</ul>
+			<h3 id="-">Мой профиль</h3>
+			<ul>
+				<li>На этой странице вы можете редактировать данные
+					о своем профиле</li>
+				<li>Чтобы выйти из аккаунта, нажмите красную кнопку
+					&quot;Выйти&quot; в правой верхней части страницы</li>
+				<li>Чтобы сохранить любые изменения в данных об
+					аккаунте, необходимо ввести свой текущий пароль
+					в правое верхнее поле для ввода и нажать кнопку
+					&quot;Сохранить изменения&quot;</li>
+			</ul>
+			<hr>
+			<h1 id="finance-controller">Finance controller</h1>
+			<h2 id="about">About</h2>
+			<p>This is an application developed
+				for the Pre-Professional Olympiad 2022.</p>
+			<p>Currently located at
+				<a href="http://4ashk1n.pythonanywhere.com/">http://4ashk1n.pythonanywhere.com/</a></p>
+			<p>Demo video: <a href="https://www.youtube.com/watch?v=EZGHHzGjdt0">
+				https://www.youtube.com/watch?v=EZGHHzGjdt0</a></p>
+			<h2 id="usage">Usage</h2>
+			<h3 id="authorization">Authorization</h3>
+			<ul>
+				<li>First of all, you need to log in or
+					create an account on the website.</li>
+				<li>The authorization page will open as soon
+					as you try to go to any tab (except &quot;Info&quot; tab)</li>
+				<li>When you enter the correct username and password
+					(or register), you will be redirected to the tab
+					you wanted to visit </li>
+			</ul>
+			<h3 id="categories">Categories</h3>
+			<ul>
+				<li>Each operation has a category to which it belongs.
+					Therefore, before adding transactions, you need to
+					create categories</li>
+				<li>To create a category, click the &quot;New category&quot;
+					<em>(&quot;Новая категория&quot;)</em> button</li>
+				<li>To edit an existing category, click the &quot;Edit&quot; <em>(&quot;Редактировать&quot;)</em>
+					button in the cell of the category you want to edit</li>
+				<li><p>A pop-up window will open in front of you.
+					You can enter the name of the category
+					in the text input field, and also choose
+					the color for the category by clicking on
+					the topbar</p>
+					<h3 id="transactions">Transactions</h3>
+				</li>
+				<li>To add an transaction, click the &quot;Add transaction&quot;
+					<em>(&quot;Добавить операцию&quot;)</em> button</li>
+				<li>To read more about an transaction or edit it, click
+					on the cell of the transaction you want to interact with</li>
+				<li>A pop-up window will open in front of you.</li>
+				<li>To edit an transaction, click on the pencil next to
+					name of the category of the transaction</li>
+				<li>You can change the category to which the transaction belongs,
+					the description of the transaction, the date and time, as well
+					as the type and amount</li>
+				<li>To save the entered data, click on the checkmark button in
+					the upper right part of the pop-up window</li>
+				<li>On the left side of the page there are filters and a balance indicator</li>
+				<li>Filters are applied automatically when they are changed</li>
+				<li>At the bottom of the filter box is the &quot;Basic Operation Mode&quot;
+					switch button<ul>
+						<li>When this mode is activated, you should select and click on
+							a transaction, the amount of which will become the basis
+							for recalculating the amounts of other transactions and the balance</li>
+						<li>Transaction amounts will be measured in arbitrary units - the
+							amount of the selected operation</li>
+						<li><em>For example: you spent 150 RUB on a supermarket and
+							1,500 RUB on a beauty salon. When choosing the first
+							transaction as the base one, the amount of the second
+							one will become equal to 10 conventional units</em></li>
+					</ul>
+				</li>
+			</ul>
+			<h3 id="statistics">Statistics</h3>
+			<ul>
+				<li><h4 id="pie-diagrams">Pie diagrams</h4>
+					<ul>
+						<li>Display total expenses by different categories</li>
+						<li>They can be filtered by categories and dates</li>
+						<li>When hovering, the total expense by category is shown</li>
+					</ul>
+				</li>
+				<li><h4 id="balance-relative-to-inflation">Balance relative to inflation</h4>
+					<ul>
+						<li>On the left side of the page there is a box with a
+							balance calculated relative to inflation for 3, 6 and
+							12 months</li>
+						<li>Inflation data is taken for Russia only</li>
+					</ul>
+				</li>
+				<li><h4 id="data-export">Data export</h4>
+					<ul>
+						<li>You can export data about your operations for a certain
+							time period</li>
+						<li>There are two buttons here that define the file format
+							to which the data is exported: <em>*.xlsx</em> and <em>*.csv</em></li>
+					</ul>
+				</li>
+				<li><h4 id="cost-forecast-for-the-current-month">Cost forecast for the current month</h4>
+					<ul>
+						<li>Expenses for the current month are predicted using
+							linear regression</li>
+						<li>Above the graph, a general forecast for the end of
+							the month is written. You can also see the forecast
+							for each day of the month by hovering over the point
+							of the linear regression graph</li>
+					</ul>
+				</li>
+			</ul>
+			<h3 id="my-profile">My Profile</h3>
+			<ul>
+				<li>On this page you can edit your profile information</li>
+				<li>To log out of your account, you must click on the
+					red &quot;Logout&quot; <em>(&quot;Выйти&quot;)</em> button</li>
+				<li>To save any changes to your account, you must enter
+					your current account password in the upper right input
+					field and click the &quot;Save changes&quot; <em>(Сохранить изменения)</em> button</li>
+			</ul>
+
 		</div>
 
 	</body>

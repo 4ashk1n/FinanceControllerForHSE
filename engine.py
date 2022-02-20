@@ -340,7 +340,7 @@ def db_import():
 
 def balance_by_inf(summ, type):
 
-    # type = 2 # год - 2, 6 мес. - 1, 3 мес. - 0
+    # type год - 2, 6 мес. - 1, 3 мес. - 0
     if float(summ) > 0:
         try:
             year2 = dt.date.today().year

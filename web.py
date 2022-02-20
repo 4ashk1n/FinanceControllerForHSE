@@ -31,7 +31,6 @@ def reg_page():
 
 @app.route('/reg', methods=["POST"])
 def reg_POST():
-    # print(1)
     user = user_by_email(request.form['email'])
     if user:
         return render_template('reg.html', error=1)
@@ -68,8 +67,7 @@ def operations_page():
         if len(operations) > 0:
             last_op_id = operations[-1].id + 1
         rows = [[], [], last_op_id, balance]
-        # print(categories)
-        # print(operations)
+
         for ctg in categories:
             ctg: Category
             if ctg.user.id == user.id:
@@ -108,7 +106,6 @@ def operations_page():
                 )
         rows[1] = sorted(rows[1], key=lambda i: unrender_date(i[0]), reverse=True)
 
-        # print(rows)
         return render_template('operations.html', rows=rows)
 
     except Exception as e:
@@ -211,8 +208,6 @@ def stats_GET():
                     (0, 0),
                     (0, 0)
                 ]]
-        # print(categories)
-        # print(operations)
         for ctg in categories:
             ctg: Category
             if ctg.user.id == user.id:
@@ -232,7 +227,6 @@ def stats_GET():
                 op.amount
             ])
 
-        # print(rows)
         return render_template('stats.html', rows=rows)
     except Exception as e:
         print(e)
