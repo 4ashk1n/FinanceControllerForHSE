@@ -57,10 +57,7 @@ def operations_page():
         session['last_page'] = '/operations'
         if "user_id" not in session:
             return redirect('/login')
-        print(users)
-        for k in users:
-            print(k.id)
-        print(session['user_id'])
+
         user = user_by_id(int(session['user_id']))
         balance = parse_amount(user.balance)
         last_op_id = 0
@@ -317,14 +314,13 @@ def download_stat(start_date, finish_date, format):
         df = pd.DataFrame(data)
 
         name = f"{user.id}.{format}"
-        cur_path = os.getcwd()
-        cur_path = cur_path.replace('\\', '/')
+
 
         if format == 'csv':
-            df.to_csv(rf"{cur_path}/static/exports/{user.id}.csv",
+            df.to_csv(rf"{CURRENT_PATH}/static/exports/{user.id}.csv",
                       encoding='utf-8-sig', sep='\t', index=False)
         elif format == 'xlsx':
-            df.to_excel(rf"{cur_path}/static/exports/{user.id}.xlsx",
+            df.to_excel(rf"{CURRENT_PATH}/static/exports/{user.id}.xlsx",
                         encoding='utf-8')
         else:
             return redirect("/")

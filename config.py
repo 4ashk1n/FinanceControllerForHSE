@@ -15,6 +15,9 @@ requests.packages.urllib3.util.connection.HAS_IPV6 = False
 # ssh_tunnel = ngrok.connect(302)
 # print(ssh_tunnel)
 
+CURRENT_PATH = os.getcwd()
+CURRENT_PATH = CURRENT_PATH.replace('\\', '/')
+CURRENT_PATH = CURRENT_PATH.replace(r'\\', '/')
 
 DB = sql.connect('DataBase.db', check_same_thread=False)
 
