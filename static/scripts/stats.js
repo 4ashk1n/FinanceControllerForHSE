@@ -1,4 +1,9 @@
 function FiltersRender(operations, categories){
+    /*
+    Функция для обработки фильтров и построения круговых диаграмм
+    - operations: операции пользователя
+    - categories: категории пользователя
+     */
     try{
         document.getElementById('minus_diagram').innerHTML = "";
         document.getElementById('plus_diagram').innerHTML = "";
@@ -141,6 +146,11 @@ function FiltersRender(operations, categories){
 }
 
 function category_by_id(categories, id) {
+    /*
+    Функция для получения категории по идентификатору
+    categories: массив категорий
+    id: идентификатор
+     */
     for(let ctg of categories){
         // console.log(ctg[0], id);
         if(ctg[0] === Number(id)){
@@ -150,32 +160,12 @@ function category_by_id(categories, id) {
     return null;
 }
 
-// function clearWaterMarks() {
-//     let waterMarks = document.getElementsByName("anychart-credits")
-//     for(let wm of waterMarks){
-//         wm.style.display = "none";
-//     }
-// }
-// anychart.onDocumentLoad(function () {
-//   // create an instance of a pie chart
-//   var chart = anychart.pie();
-//   // set the data
-//     chart.data([
-//     ["Chocolate", 5],
-//     ["Rhubarb compote", 2],
-//     ["Crêpes Suzette", 2],
-//     ["American blueberry", 2],
-//     ["Buttermilk", 1]
-//   ]);
-//   // set chart title
-//   chart.title("Top 5 pancake fillings");
-//   // set the container element
-//   chart.container("minus_diagram");
-//   // initiate chart display
-//   chart.draw();
-// });
 
 function exportStats(format) {
+    /*
+    Функция для обработки фильтров даты и экспорта данных
+    - format: формат, в котором пользователь хочет скачать файл
+     */
     let date_start = null;
     if(document.getElementById("date_start").value) {
         date_start = new Date(
@@ -202,11 +192,16 @@ function exportStats(format) {
     date_end = date_end.toISOString().split('T')[0]
 
     let url = `/download_statistic/from=${date_start}&to=${date_end}&format=${format}`
-    window.open(url, '_blank').focus()
+    window.open(url, '_blank')
 }
 
 
 function linereg_diagram(operations) {
+    /*
+    Функция для построения графика линейной регрессии
+    и подсчета прогноза расходов на текущий месяц
+    - operations: операции пользователя
+     */
     let start_date = (new Date())
     start_date.setDate(1)
     let end_date = new Date();
@@ -245,15 +240,9 @@ function linereg_diagram(operations) {
 
     chart = anychart.scatter();
 
-    // chart.title("The calculated formula: " + result.string + "\nThe coefficient of determination (R2): " + result.r2.toPrecision(2));
-
-    // chart.legend(true);
-
-    // creating the first series (marker) and setting the experimental data
     let series1 = chart.marker(data_1);
     series1.name("Точное значение");
 
-    // creating the second series (line) and setting the theoretical data
     let series2 = chart.line(data_2);
     series2.name("Прогноз");
     series2.markers(true);
@@ -272,25 +261,39 @@ function linereg_diagram(operations) {
 
 }
 
-//input X and calculate Y using the formula found
-//this works with all types of regression
 function formula(coeff, x) {
-  var result = null;
-  for (var i = 0, j = coeff.length - 1; i < coeff.length; i++, j--) {
-    result += coeff[i] * Math.pow(x, j);
-  }
-  return result;
+    /*
+    Функция для подсчета значения линейной регрессии
+    на координате x
+    - coeff: данные функции регрессии
+    - x: аргумент x
+
+    Возвращает значение функции линейной регрессии
+     */
+    let result = null;
+    for (let i = 0, j = coeff.length - 1; i < coeff.length; i++, j--) {
+        result += coeff[i] * Math.pow(x, j);
+    }
+    return result;
 }
 
-//setting theoretical data array of [X][Y] using experimental X coordinates
-//this works with all types of regression
 function setTheoryData(rawData, coeff, len) {
+    /*
+    Функция для подсчета прогнозов трат на каждый день
+    текущего месяца
+    - rawData: информация о расходах в этом месяце
+    - coeff: данные функции регрессии
+    - len: длина текущего месяца в днях
+
+    Возвращает массив прогнозов (теоретически высчитанных расходов)
+     */
   let theoryData = [];
   for (let i = rawData[0][0]; i < len; i++) {
       theoryData[i] = [i, formula(coeff, i)];
   }
   return theoryData;
 }
+
 
 let CPIs = {
     "2021-1": 5.19,
@@ -309,6 +312,11 @@ let CPIs = {
 }
 
 function calculate_inflation(monthes, amount) {
+    /*
+    Функция для пересчета суммы относительно инфляции
+    - monthes: количество месяцев
+    - amount: сумма
+     */
     let FV = amount;
     let t = monthes / 12
     let new_date = new Date()
@@ -326,5 +334,10 @@ function calculate_inflation(monthes, amount) {
 }
 
 function parse_amount(amount) {
+    /*
+    Функция для разбиения десятичной дроби на
+    целую и дробную часть
+    - amount: число
+     */
     return String(amount).split('.')
 }

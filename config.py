@@ -33,6 +33,9 @@ categories = []
 
 db_cursor = DB.cursor()
 
+"""
+Создание таблиц для базы данных в случае их отсутствия 
+"""
 db_cursor.execute('''
 CREATE TABLE IF NOT EXISTS "categories" (
 	"id"	INTEGER,

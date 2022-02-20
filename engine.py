@@ -1,10 +1,21 @@
 from config import *
 
 
+
 def str_to_date(s):
+    """
+    Функция для преобразования строки в datetime.date
+    :param s: строка, из которой необходимо сделать дату
+    :return: дата с типом данных datetime.date
+    """
     return dt.datetime.strptime(s, "%Y-%m-%d").date()
 
 def str_to_datetime(s):
+    """
+    Функция для преобразования строки в datetime.datetime
+    :param s: строка, из которой необходимо сделать дату и время
+    :return: дата и время с типом данных datetime.datetime
+    """
     try:
         return dt.datetime.strptime(s, "%Y-%m-%d %H:%M:%S")
     except:
@@ -12,6 +23,13 @@ def str_to_datetime(s):
             return dt.datetime.strptime(s, "%Y-%m-%d %H:%M")
         except:
             return None
+
+"""
+Функции для получения объектов по уникальным параметрам (id, email у пользователя)
+Принимают уникальный параметр
+Возвращают объект в случае удачного нахождения
+Иначе None
+"""
 
 def user_by_id(id):
     for usr in users:
@@ -39,7 +57,14 @@ def operation_by_id(id):
     return None
 
 
+
+
 def render_date(date: dt.datetime):
+    """
+    Функция для преобразования даты в формат даты на русском языке
+    :param date: дата
+    :return: дата на русском языке в формате "день месяц(название) год"
+    """
     monthes = ['января', 'февраля', 'марта',
                'апреля', 'мая', 'июня',
                'июля', 'августа', 'сентября',
@@ -51,6 +76,11 @@ def render_date(date: dt.datetime):
     return day + " " + month + " " + year
 
 def unrender_date(date: str):
+    """
+    Функция, обратная предыдущей. Из даты на русскомя языке делает объект datetime.date
+    :param date: строка с датой на русском языке
+    :return: дата с типом данных datetime.date
+    """
     date = date.split()
     monthes = ['января', 'февраля', 'марта',
                'апреля', 'мая', 'июня',
@@ -64,6 +94,11 @@ def unrender_date(date: str):
 
 
 def parse_amount(amount):
+    """
+    Функция для "украшения" числа (постановка пробела через каждые три символа, начиная с конца)
+    :param amount: Число
+    :return: Две строки: преобразованная целая часть и число после запятой
+    """
     amount = str(float(amount)).split('.')
     new_big = ''
     if len(amount[0]) >= 3:
@@ -83,6 +118,9 @@ def parse_amount(amount):
     return amount[0], amount[1]
 
 class User:
+    """
+    Класс Пользователь
+    """
     id: int
     email: str
     password: str
@@ -92,6 +130,16 @@ class User:
 
     def __init__(self, id, email, password, name, balance, reg_date=None,
                  new = True):
+        """
+        Конструктор. Принимает:
+        :param id: Идентификатор пользователя
+        :param email: Логин пользователя
+        :param password: Пароль пользователя
+        :param name: Имя пользователя
+        :param balance: Баланс пользователя
+        :param reg_date: Дата регистрации пользователя
+        :param new: Информация о том, новый ли это пользователь
+        """
         if id == -1:
             if len(users) > 0:
                 id = users[-1].id + 1
@@ -113,6 +161,10 @@ class User:
         users.append(self)
 
     def dbUpdate(self, new=False):
+        """
+        Функция обновления базы данных в соответствии с изменениями объекта
+        :param new: Информация о том, новый ли это пользователь
+        """
         if new:
             db_cursor.execute(f'''
             INSERT INTO users VALUES 
@@ -137,12 +189,23 @@ class User:
         DB.commit()
 
     def balanceChange(self, plus):
+        """
+        Метод изменения баланса пользователя
+        :param plus: значение, которое необходимо прибавить к балансу
+        """
         self.balance = float("{0:.2f}".format(self.balance))
         self.balance += plus
         self.balance = float("{0:.2f}".format(self.balance))
         self.dbUpdate()
 
     def change(self, name, email, password, balance):
+        """
+        Метод для изменения данных о пользователе
+        :param name: новое имя пользователя
+        :param email: новый логин пользователя
+        :param password: новый пароль пользователя
+        :param balance: новый баланс пользователя
+        """
         if name is not None:
             self.name = name
         if email is not None:
@@ -155,13 +218,25 @@ class User:
 
 
 class Category:
+    """
+    Класс Категория
+    """
     id: int
     user: User
     name: str
     color: str
 
+
     def __init__(self, id, user_id, name, color,
                  new = True):
+        """
+        Конструктор
+        :param id: идентификатор категории
+        :param user_id: идентификатор пользователя, которому принадлежит категория
+        :param name: название категории
+        :param color: цвет категории
+        :param new: Информация о том, новая ли это категория
+        """
         if id == -1:
             id = categories[-1].id + 1
         self.id = id
@@ -173,6 +248,10 @@ class Category:
         categories.append(self)
 
     def dbUpdate(self, new=False):
+        """
+        Обновление базы данных в соответствии с изменениями объекта
+        :param new: Информация о том, новая ли это категория
+        """
         if new:
             db_cursor.execute(f'''
             INSERT INTO categories VALUES 
@@ -194,6 +273,11 @@ class Category:
 
 
     def change(self, name=None, color=None):
+        """
+        Изменение объекта
+        :param name: новое название категории
+        :param color: новый цвет категории
+        """
         if name is not None:
             self.name = name
         if color is not None:
@@ -201,6 +285,9 @@ class Category:
         self.dbUpdate()
 
 class Operation:
+    """
+    Класс Операция
+    """
     id: int
     user: User
     type: int
@@ -211,6 +298,17 @@ class Operation:
 
     def __init__(self, id, user_id, type, amount, category_id, date=None, description=None,
                  new=True):
+        """
+        Конструктор
+        :param id: идентификатор операции
+        :param user_id: идентификатор пользователя, которому принадлежит категория
+        :param type: тип операции (0 - расход, 1 - доход)
+        :param amount: сумма операции
+        :param category_id: идентификатор категории, к которой относится операция
+        :param date: дата и время операции
+        :param description: описание операции
+        :param new: Информация о том, новая ли это операция
+        """
         if id == -1:
             id = operations[-1].id + 1
         self.id = id
@@ -237,6 +335,10 @@ class Operation:
 
 
     def dbUpdate(self, new):
+        """
+        Метод для обновления базы данных
+        :param new: Информация о том, новая ли это операция
+        """
         if new:
             db_cursor.execute(f'''
             INSERT INTO operations VALUES 
@@ -265,6 +367,14 @@ class Operation:
 
     def change(self, type=None, amount=None, category_id=None,
                date=None, description=None):
+        """
+        Метод для изменения объекта
+        :param type: новый тип операции
+        :param amount: новая сумма операции
+        :param category_id: новый идентификатор категории
+        :param date: новая дата и время
+        :param description: новое описание
+        """
 
         if amount is not None:
             if self.type:
@@ -300,6 +410,9 @@ class Operation:
         self.dbUpdate(False)
 
 def db_import():
+    """
+    Функция для импорта данных из базы данных и создания соответствующих им объектов
+    """
     db_u = db_cursor.execute('SELECT * FROM users').fetchall()
     db_c = db_cursor.execute('SELECT * FROM categories').fetchall()
     db_o = db_cursor.execute('SELECT * FROM operations').fetchall()
@@ -340,8 +453,12 @@ def db_import():
 
 
 def balance_by_inf(summ, type):
-
-    # type год - 2, 6 мес. - 1, 3 мес. - 0
+    """
+    Функция для пересчета суммы относительно инфляции
+    :param summ: Сумма
+    :param type: Тип пересчета (0 - 3 месяца, 1 - 6 месяцев, 2 - 12 месяцев)
+    :return: Пересчитанная сумма
+    """
     if float(summ) > 0:
         try:
             year2 = dt.date.today().year

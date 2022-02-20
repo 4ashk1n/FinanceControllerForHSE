@@ -1,8 +1,18 @@
-function PopupWindowShow(date, amountbig=0, amounsmall=0, description="", color, id_, type, category_name) {
-    // alert(`operation_${id_}`);
-    // alert(document.getElementById(`operation_${id_}`));
+function PopupWindowShow(date, amountbig=0, amountsmall=0, description="", color, id_, type, category_name) {
+    /*
+    Функция для показа всплывающего окна
+    - date: Дата и время операции
+    - amountbig: Целая часть суммы операции
+    - amountsmall: Дробная часть суммы операции
+    - description: Описание операции
+    - color: Цвет категории операции
+    - id_: Идентификатор операции
+    - type: Тип операции
+    - category_name: Название категории операции
+     */
+
     if(BaseMode){
-        BaseChange(id_, amountbig, amounsmall)
+        BaseChange(id_, amountbig, amountsmall)
         return;
     }
 
@@ -22,7 +32,7 @@ function PopupWindowShow(date, amountbig=0, amounsmall=0, description="", color,
         document.getElementById("popup_amount_small").style.color = '#008e00';
     }
     document.getElementById("popup_amount_big").innerText = sign + amountbig;
-    document.getElementById("popup_amount_small").innerText = ','+amounsmall;
+    document.getElementById("popup_amount_small").innerText = ','+amountsmall;
     document.getElementById("popup_date").innerText = date;
     document.getElementById("popup_description_text").innerText = `${description}`;
     document.getElementById('popup_op_id').innerHTML = id_
@@ -35,14 +45,21 @@ function PopupWindowShow(date, amountbig=0, amounsmall=0, description="", color,
 
 
 }
-function PopupWindowHide(ctgs) {
+function PopupWindowHide() {
+    /*
+    Функция для скрытия всплывающего окна
+    - ctgs: список применяемых категорий
+     */
     EditMode = false;
     document.getElementById("dim").style.display = "none";
     document.getElementById("popup").style.display = "none";
     document.getElementById("popup_close").style.display = "none";
-    PopupReset(ctgs);
+    PopupReset();
 }
 function FiltersRender(){
+    /*
+    Функция для обработки фильтров и обновления ленты
+     */
     try{
         let filtered_categories = [];
         let cats_filter = document.getElementsByClassName("categorie_checkbox");
@@ -129,9 +146,11 @@ function FiltersRender(){
 let EditMode = false;
 
 function PopupEdit(ctgs) {
-    // alert(document.getElementById("popup_amount_big").innerHTML.slice(1).replaceAll(' ',''))
+    /*
+    Функция для переключения всплывающего окна в режим редактирования
+    - ctgs: список используемых категорий
+     */
     if(EditMode){PopupReset(ctgs); return;}
-    // alert(document.getElementById("popup_date").value)
     EditMode = true;
 
     let old_date = 0;
@@ -202,7 +221,10 @@ ${document.getElementById("popup_description_text").innerHTML}</textarea>
     document.getElementById("popup_color").style.backgroundColor = color
     // document.body.appendChild(document.getElementById('popup_form'));
 }
-function PopupReset(ctgs) {
+function PopupReset() {
+    /*
+    Функция для переключения всплывающего окна в режим чтения
+     */
     EditMode = false;
     edit_onclick = document.getElementById('popup_button_edit').getAttribute('onclick');
     document.getElementById("popup").innerHTML = `
@@ -232,19 +254,28 @@ let Base = 1;
 let BaseId = -1;
 
 function BaseModeSwitch() {
-    // document.getElementById("base_filter_button").checked =
-    //     !document.getElementById("base_filter_button").checked;
+    /*
+    Включение/Выключение режима базовой операции
+     */
+
     if (BaseMode){
         document.getElementById("base_filter_button").checked = false;
     }
     BaseMode = !BaseMode;
-    // alert(BaseMode)
+
     if(!BaseMode){
         BaseChange(-1, 1, 0)
     }
 }
 
 function BaseChange(id, amountbig, amountsmall) {
+    /*
+    Функция пересчета значений сумм операций относительно базы
+    - id: идентификатор выбранной в качестве базовой операции
+    - amountbig: целая часть суммы выбранной операции
+    - amountsmall: дробная часть выбранной операции
+     */
+
     Base = Number((amountbig + '.' + amountsmall).replaceAll(' ',''));
     if(Base === 0){
         alert("Нельзя использовать операцию стоимостью 0 в качестве базовой")

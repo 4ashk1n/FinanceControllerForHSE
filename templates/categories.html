@@ -66,11 +66,11 @@
 
 			</div>
 		<div class="container">
-			<img class="popup_close" onclick="PopupWindowHide({{rows[0]}})"
+			<img class="popup_close" onclick="PopupWindowHide()"
 				 src="{{ url_for('static',filename='icons/close_white_24dp.svg')}}"
 				 id="popup_close" alt="Закрыть">
 
-			<div class="dim" id="dim" onclick="PopupWindowHide({{rows[0]}})"></div>
+			<div class="dim" id="dim" onclick="PopupWindowHide()"></div>
 			<div class="popup_container" id="popup">
 				<form method="post">
 					<input type="text" style="display: none" id="popup_id" name="popup_id">
