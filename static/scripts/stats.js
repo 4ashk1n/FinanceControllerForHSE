@@ -203,7 +203,7 @@ function linereg_diagram(operations) {
     - operations: операции пользователя
      */
     let start_date = (new Date())
-    start_date.setDate(1)
+    start_date.setDate(0)
     let end_date = new Date();
     end_date.setMonth(end_date.getMonth() + 1)
     end_date.setDate(0);
@@ -287,11 +287,17 @@ function setTheoryData(rawData, coeff, len) {
 
     Возвращает массив прогнозов (теоретически высчитанных расходов)
      */
-  let theoryData = [];
-  for (let i = rawData[0][0]; i < len; i++) {
-      theoryData[i] = [i, formula(coeff, i)];
-  }
-  return theoryData;
+    let theoryData = [];
+    try {
+        for (let i = rawData[0][0]; i < len; i++) {
+            theoryData[i] = [i, formula(coeff, i)];
+        }
+    }
+    catch (e) {
+        "Значит, в текущем месяце расходов не было"
+    }
+    return theoryData;
+
 }
 
 
