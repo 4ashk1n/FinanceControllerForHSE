@@ -119,7 +119,7 @@ function FiltersRender(operations, categories){
 
         // initiate drawing the minus_chart
 
-        
+
         var plus_chart = anychart.pie();
 
         plus_chart.data(plus_pie_data)
@@ -251,8 +251,8 @@ function linereg_diagram(operations) {
     series2.tooltip().format("День месяца: {%X}\nПотрачено: {%value}{decimalsCount:2} руб.")
 
     document.getElementById("forecast").innerHTML = `
-        Прогноз общих расходов к концу месяца: 
-        <span class="forecast_number">${formula(coeff, amounts.length - 1).toFixed(2)}</span> 
+        Прогноз общих расходов к концу месяца:
+        <span class="forecast_number">${formula(coeff, amounts.length - 1).toFixed(2)}</span>
         руб.
     `
 
@@ -287,17 +287,15 @@ function setTheoryData(rawData, coeff, len) {
 
     Возвращает массив прогнозов (теоретически высчитанных расходов)
      */
-    let theoryData = [];
-    try {
-        for (let i = rawData[0][0]; i < len; i++) {
-            theoryData[i] = [i, formula(coeff, i)];
-        }
-    }
-    catch (e) {
-        "Значит, в текущем месяце расходов не было"
-    }
+  let theoryData = [];
+  try{
+      for (let i = rawData[0][0]; i < len; i++) {
+          theoryData[i] = [i, formula(coeff, i)];
+      }
+  }
+  finally{
     return theoryData;
-
+  }
 }
 
 
@@ -314,7 +312,9 @@ let CPIs = {
     "2021-10": 8.14,
     "2021-11": 8.40,
     "2021-12": 8.39,
-    "2022-1": 8.74
+    "2022-1": 8.74,
+    "2022-2":9.2,
+    "2022-3":16.7
 }
 
 function calculate_inflation(monthes, amount) {
@@ -326,8 +326,10 @@ function calculate_inflation(monthes, amount) {
     let FV = amount;
     let t = monthes / 12
     let new_date = new Date()
-    new_date.setMonth(new_date.getMonth() - monthes)
-    let r = CPIs[`${new_date.getFullYear()}-${new_date.getMonth()}`] / 100
+    new_date.setMonth(new_date.getMonth() - monthes - 1)
+
+
+    let r = CPIs[`${new_date.getFullYear()}-${new_date.getMonth() + 1}`] / 100
 
     let result = (FV / Math.pow((1 + r), t)).toFixed(2)
     // return parse_amount(result)
